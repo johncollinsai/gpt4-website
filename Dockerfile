@@ -1,14 +1,12 @@
-FROM python:slim
+FROM python:3.8-slim
 
-WORKDIR /home/gpt4
+WORKDIR /app
 
-COPY requirements.txt requirements.txt 
-RUN python -m venv venv
-RUN venv/bin/pip install -r requirements.txt
+COPY requirements.txt requirements.txt
+RUN pip install -r requirements.txt
 
-COPY gpt4.ipynb gpt4-image.png boot.sh ./ 
+COPY . .
 
-RUN chmod a+x boot.sh
-ENV PORT 8080
+EXPOSE 8080
 
-ENTRYPOINT ["./boot.sh"]
+CMD ["python", "app/main.py"]

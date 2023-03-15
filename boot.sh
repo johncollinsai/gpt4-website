@@ -1,6 +1,7 @@
 #!/bin/bash
+# this script is used to boot a Docker container
 
 source venv/bin/activate
 
-exec voila gpt4.ipynb --Voila.ip=0.0.0.0 --port=8080 --no-browser --strip_sources=False --theme=dark
-
+# options specify the file paths for the access log and error log files, respectively
+exec gunicorn -b :8080 --access-logfile - --error-logfile - gpt4-website:app
